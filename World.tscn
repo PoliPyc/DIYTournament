@@ -33,7 +33,7 @@ format = 1
 tile_data = PoolIntArray( 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524315, 0, 0, 524316, 0, 0, 524317, 0, 0, 524318, 0, 0 )
 
 [node name="Player_body" parent="." instance=ExtResource( 2 )]
-position = Vector2( 113.453, 84.3727 )
+position = Vector2( 96, 224 )
 
 [node name="Player_body2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 913.72, 136.733 )
+position = Vector2( 928, 224 )

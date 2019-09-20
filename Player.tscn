@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player_model.tscn" type="PackedScene" id=1]
 [ext_resource path="res://State.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Projectile_spawn.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Projectile_spawn.gd" type="Script" id=4]
-[ext_resource path="res://Builder.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Builder.tscn" type="PackedScene" id=4]
 
 [node name="Player" type="Node"]
 
@@ -13,6 +12,5 @@
 [node name="State" parent="." instance=ExtResource( 2 )]
 
 [node name="Projectile_spawn" parent="." instance=ExtResource( 3 )]
-script = ExtResource( 4 )
 
-[node name="Builder" parent="." instance=ExtResource( 5 )]
+[node name="Builder" parent="." instance=ExtResource( 4 )]
