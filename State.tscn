@@ -1,0 +1,9 @@
+[gd_scene format=2]
+
+[node name="State" type="Node"]
+
+[node name="Idle" type="Node" parent="."]
+
+[node name="Walk" type="Node" parent="."]
+
+[node name="Jump" type="Node" parent="."]
