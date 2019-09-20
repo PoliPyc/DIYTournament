@@ -8,22 +8,36 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "Map",
+"language": "GDScript",
+"path": "res://Map.gd"
+} ]
 _global_script_class_icons={
-
+"Map": ""
 }
 
 [application]
 
 config/name="DIYTournament"
-run/main_scene="res://World_projectiles.tscn"
+run/main_scene="res://World_Tymek.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1280
+window/size/height=720
+window/size/resizable=false
+window/size/fullscreen=true
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [input]
 
 shoot={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"unicode":0,"echo":false,"script":null)
  ]
 }
 

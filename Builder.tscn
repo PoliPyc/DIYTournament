@@ -1,5 +1,10 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Builder.gd" type="Script" id=1]
+[ext_resource path="res://Tiles/cursor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Tiles/dirt.tscn" type="PackedScene" id=3]
 
 [node name="Builder" type="Node"]
-
-[node name="Sprite" type="Sprite" parent="."]
+script = ExtResource( 1 )
+cursor_prefab = ExtResource( 2 )
+tile_prefab = ExtResource( 3 )
