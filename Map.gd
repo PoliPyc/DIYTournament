@@ -24,11 +24,7 @@ func generate():
         for y in range(LEVEL_HEIGHT):
             world[x].append([])
             world[x][y] = null
-#            world[x][y] = default_tile.instance()
-#            world[x][y].position.x = tileCoordToWorldCoord(x)
-#            world[x][y].position.y = tileCoordToWorldCoord(y)
-#            self.add_child(world[x][y])
-
+            
 func tileCoordToWorldCoord(coord):
     return coord * TILE_SIZE;
     

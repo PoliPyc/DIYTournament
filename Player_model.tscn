@@ -3,8 +3,8 @@
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://Builder.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Projectile_spawn.tscn" type="PackedScene" id=4]
-[ext_resource path="res://State.tscn" type="PackedScene" id=5]
+[ext_resource path="res://State.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Projectile_spawn.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -21,6 +21,8 @@ shape = SubResource( 1 )
 
 [node name="Builder" parent="." instance=ExtResource( 3 )]
 
-[node name="Projectile_spawn" parent="." instance=ExtResource( 4 )]
+[node name="State" parent="." instance=ExtResource( 4 )]
 
-[node name="State" parent="." instance=ExtResource( 5 )]
+[node name="ProjectileSpawnPoint" type="Node2D" parent="."]
+position = Vector2( 30, 0 )
+script = ExtResource( 5 )

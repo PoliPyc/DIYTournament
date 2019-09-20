@@ -17,7 +17,7 @@ func get_input():
     velocity.y += gravity 
     
     if Input.is_action_just_pressed('shoot'+playerNumber):
-        $Projectile_spawn.shoot()
+        $ProjectileSpawnPoint.shoot()
     
     #Jump Physics
     if velocity.y > 0: #Player is falling
