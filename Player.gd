@@ -9,11 +9,13 @@ export var speed = 100
 var velocity = Vector2()
 export var gravity = 8
 
-func _physics_process(delta):
-
+func get_input():
     #Applying gravity to player
     velocity.y += gravity 
-
+    
+    if Input.is_action_just_pressed('shoot'):
+        $Projectile_spawn.shoot()
+    
     #Jump Physics
     if velocity.y > 0: #Player is falling
         velocity += Vector2.UP * (-9.81) * (fallMultiplier) #Falling action is faster than jumping action | Like in mario
@@ -32,4 +34,10 @@ func _physics_process(delta):
         velocity.x = -speed
     else:
         velocity.x = 0
-    velocity = move_and_slide(velocity, Vector2(0,-1))  
+    velocity = move_and_slide(velocity, Vector2(0,-1))
+
+func _physics_process(delta):
+    get_input()
+    
+
+      
