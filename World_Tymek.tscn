@@ -15,3 +15,4 @@ position = Vector2( 96, 224 )
 
 [node name="Player_body2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 928, 224 )
+playerNumber = "2"

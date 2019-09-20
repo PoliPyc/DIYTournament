@@ -8,9 +8,11 @@ var cursorY = 0
 export(PackedScene) var cursor_prefab
 export(PackedScene) var tile_prefab
 var cursor = null
+var playerNumber = '0'
 
 func _ready():
     map = get_tree().get_root().get_node("World").get_node("Map") as Map
+    playerNumber = (get_parent() as Player).playerNumber
     cursorX = map.worldCoordToTileCoord(get_parent().position.x)
     cursorY = map.worldCoordToTileCoord(get_parent().position.y)
     spawnStartPlatform()
@@ -31,24 +33,24 @@ func handleCursorExistance():
     
 func processInput():
     var hasPositionChanged = false;
-    if Input.is_action_just_pressed("ui_focus_next"):
+    if Input.is_action_just_pressed("enableBuilder"+playerNumber):
         isBuilderMode = !isBuilderMode;
     if (!isBuilderMode):
         return
         
-    if Input.is_action_just_pressed("ui_right"):
+    if Input.is_action_just_pressed("right"+playerNumber):
         cursorX += 1
         hasPositionChanged = true;        
-    elif Input.is_action_just_pressed("ui_left"):
+    elif Input.is_action_just_pressed("left"+playerNumber):
         cursorX -= 1
         hasPositionChanged = true;        
-    elif Input.is_action_just_pressed("ui_up"):
+    elif Input.is_action_just_pressed("up"+playerNumber):
         cursorY -= 1
         hasPositionChanged = true;        
-    elif Input.is_action_just_pressed("ui_down"):
+    elif Input.is_action_just_pressed("down"+playerNumber):
         cursorY += 1
         hasPositionChanged = true;
-    elif Input.is_action_just_pressed("ui_select"):
+    elif Input.is_action_just_pressed("spawnBlock"+playerNumber):
         spawnAtCursor()
         hasPositionChanged = true;
     if (hasPositionChanged):
@@ -56,7 +58,6 @@ func processInput():
         cursor.position.y = map.tileCoordToWorldCoord(cursorY);
 
 func spawnAtCursor():
-    print(map.world[cursorX][cursorY])
     if (map.world[cursorX][cursorY] != null):
         map.world[cursorX][cursorY].queue_free()
         map.world[cursorX][cursorY] = null
