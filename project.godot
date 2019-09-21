@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Dirt",
+"language": "GDScript",
+"path": "res://Tiles/dirt.gd"
+}, {
 "base": "Node",
 "class": "Map",
 "language": "GDScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://Player.gd"
 } ]
 _global_script_class_icons={
+"Dirt": "",
 "Map": "",
 "Player": ""
 }

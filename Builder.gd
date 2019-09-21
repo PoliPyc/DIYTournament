@@ -8,6 +8,7 @@ export(Array, PackedScene) var tile_prefabs
 var cursor = null
 var playerNumber = '0'
 var currentTileNumber = 0;
+var canSpawnTile = true;
 
 func _ready():
     map = get_tree().get_root().get_node("World").get_node("Map") as Map
@@ -29,19 +30,15 @@ func handleCursorExistance():
 func processInput():
     var hasPositionChanged = false;
     if Input.is_action_just_pressed("cursor_right"+playerNumber):
-        print("R")
         cursorPosition.x += 1
         hasPositionChanged = true;        
     elif Input.is_action_just_pressed("cursor_left"+playerNumber):
-        print("L")
         cursorPosition.x -= 1
         hasPositionChanged = true;        
     elif Input.is_action_just_pressed("cursor_up"+playerNumber):
-        print("U")
         cursorPosition.y -= 1
         hasPositionChanged = true;        
     elif Input.is_action_just_pressed("cursor_down"+playerNumber):
-        print("D")
         cursorPosition.y += 1
         hasPositionChanged = true;
     elif Input.is_action_just_pressed("spawnBlock"+playerNumber):
@@ -63,6 +60,7 @@ func processInput():
         cursorPosition.x = clamp(cursorPosition.x, 0, map.LEVEL_WIDTH)
         cursorPosition.y = clamp(cursorPosition.y, 0, map.LEVEL_HEIGHT)
         cursor.position = map.tileToWorldCoordinate(cursorPosition);
+        refreshCursorSprite();
 
 func refreshCursorSprite():
     # hack na wyciągnięcie tekstury z zapakowanej sceny, jebać godota
@@ -70,12 +68,22 @@ func refreshCursorSprite():
     cursor.get_node('Sprite').set_texture(temp.get_node('Sprite').texture);
     cursor.get_node('Sprite').set_vframes(temp.get_node('Sprite').get_vframes());
     cursor.get_node('Sprite').set_hframes(temp.get_node('Sprite').get_hframes());
-    cursor.get_node('Sprite').modulate = Color(1, 1, 1, 0.25);
+    
+    if (temp.has_method("validatePosition")):
+        canSpawnTile = temp.validatePosition(cursorPosition, map);
+    else:
+        canSpawnTile = true;
+    if (canSpawnTile):
+        cursor.get_node('Sprite').modulate = Color(1, 1, 1, 0.25);
+    else:
+        cursor.get_node('Sprite').modulate = Color(1, 0, 0, 0.25);
+        
     temp.queue_free();
 
 func spawnAtCursor():
+    if (!canSpawnTile):
+        return;
     if (map.world[cursorPosition.x][cursorPosition.y] != null):
-        return
         map.world[cursorPosition.x][cursorPosition.y].queue_free()
         map.world[cursorPosition.x][cursorPosition.y] = null
         

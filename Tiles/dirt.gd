@@ -1,4 +1,6 @@
 extends Node2D
+class_name Dirt
+
 var hp = 3
 # Declare member variables here. Examples:
 # var a = 2
