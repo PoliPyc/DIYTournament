@@ -60,7 +60,9 @@ func processInput():
         cursor.position.y = map.tileCoordToWorldCoord(cursorY);
 
 func spawnAtCursor():
+
     if (map.world[cursorX][cursorY] != null):
+        return
         map.world[cursorX][cursorY].queue_free()
         map.world[cursorX][cursorY] = null
         

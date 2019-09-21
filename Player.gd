@@ -5,7 +5,7 @@ export var fallMultiplier = 2
 export var lowJumpMultiplier = 10 
 export var jumpVelocity = 400 #Jump height
 export var speed = 100
-export var maxFallingSpeed = 1000;
+export var maxFallingSpeed = 4000;
 export(String) var playerNumber = '1'
 #Physics
 var velocity = Vector2()
