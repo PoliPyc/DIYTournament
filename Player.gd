@@ -10,10 +10,11 @@ export(String) var playerNumber = '1'
 #Physics
 var velocity = Vector2()
 export var gravity = 8
-var hp = 100
+var hp = 10
 var isInBuilderMode = false
 export var lookingVector = Vector2(1,0)
 
+var isCarryingFlag = false;
 
 func get_input():
     #Applying gravity to player
@@ -50,8 +51,13 @@ func get_input():
 
 func _physics_process(delta):
     get_input()
-    if hp<0:
-        queue_free()
+    if hp<=0:
+        if (isCarryingFlag):
+            for i in range(self.get_child_count()):
+                if (self.get_child(i).get_class() == 'Area2D'):
+                    var flag = self.get_child(i);
+                    call_deferred("reparent", flag, get_tree().get_root(), self.global_position)
+        queue_free();
     var vp = get_viewport_rect().size
     if position.y < 0:
         position.y += vp.y
@@ -62,7 +68,16 @@ func _physics_process(delta):
     if position.x > vp.x:
         position.x -= vp.x     
     
-    
+    if self.velocity.x < 0:
+        $Sprite.flip_h = true
+    elif self.velocity.x > 0:
+        $Sprite.flip_h = false
+        
 func hit():
     hp -= 5
     print("%s got hit, hp left %s"%[playerNumber, hp])
+    
+func reparent(flag, root, lastPlayerPos):
+    flag.get_parent().remove_child(flag);
+    root.add_child(flag)
+    flag.position = lastPlayerPos;
