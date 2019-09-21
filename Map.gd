@@ -26,7 +26,7 @@ func generate():
             world[x][y] = null
             
 func tileCoordToWorldCoord(coord):
-    return clamp(coord * TILE_SIZE, 0, LEVEL_WIDTH);
+    return coord * TILE_SIZE;
     
 func worldCoordToTileCoord(coord):
     return coord / TILE_SIZE;
