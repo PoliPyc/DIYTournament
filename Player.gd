@@ -62,7 +62,11 @@ func _physics_process(delta):
     if position.x > vp.x:
         position.x -= vp.x     
     
-    
+    if self.velocity.x < 0:
+        $Sprite.flip_h = true
+    elif self.velocity.x > 0:
+        $Sprite.flip_h = false
+        
 func hit():
     hp -= 5
     print("%s got hit, hp left %s"%[playerNumber, hp])
