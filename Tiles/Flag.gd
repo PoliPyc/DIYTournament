@@ -47,4 +47,6 @@ func score(player):
             player.get_child(i).queue_free();
 
 func validatePosition(vector, map):
+    if vector.y >= map.LEVEL_HEIGHT:
+        return false
     return map.world[vector.x][vector.y + 1] != null && map.world[vector.x][vector.y + 1] is Dirt

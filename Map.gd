@@ -30,4 +30,4 @@ func tileToWorldCoordinate(vector):
     return Vector2(vector.x * TILE_SIZE, vector.y * TILE_SIZE);
     
 func worldToTileCoordinate(vector):
-    return Vector2(clamp(vector.x / TILE_SIZE, 0, LEVEL_WIDTH), clamp(vector.y / TILE_SIZE, 0 ,LEVEL_HEIGHT));
+    return Vector2(clamp(int(vector.x / TILE_SIZE), 0, LEVEL_WIDTH), clamp(int(vector.y / TILE_SIZE), 0 ,LEVEL_HEIGHT));

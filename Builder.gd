@@ -2,6 +2,8 @@ extends Node
 
 var map
 
+var cursorOffset = Vector2(0,0)
+var basePosition = Vector2(0,0)
 var cursorPosition = Vector2(0,0)
 export(PackedScene) var cursor_prefab
 export(Array, PackedScene) var tile_prefabs
@@ -14,13 +16,14 @@ func _ready():
     print(get_tree().get_root());
     map = get_parent().get_parent().get_node("Map") as Map
     playerNumber = (get_parent() as Player).playerNumber
-    cursorPosition = map.worldToTileCoordinate(get_parent().position)
+    basePosition = map.worldToTileCoordinate(get_parent().position)
     spawnStartPlatform();
     spawnDebugFlags();
     handleCursorExistance();
     refreshCursorSprite();
     
 func _process(delta):
+    basePosition = get_parent().position
     processInput();
     
 func handleCursorExistance():
@@ -32,18 +35,20 @@ func handleCursorExistance():
 func processInput():
     var hasPositionChanged = false;
     if Input.is_action_just_pressed("cursor_right"+playerNumber):
-        cursorPosition.x += 1
+        cursorOffset.x += 1
         hasPositionChanged = true;        
     elif Input.is_action_just_pressed("cursor_left"+playerNumber):
-        cursorPosition.x -= 1
+        cursorOffset.x -= 1
         hasPositionChanged = true;        
     elif Input.is_action_just_pressed("cursor_up"+playerNumber):
-        cursorPosition.y -= 1
+        cursorOffset.y -= 1
         hasPositionChanged = true;        
     elif Input.is_action_just_pressed("cursor_down"+playerNumber):
-        cursorPosition.y += 1
+        cursorOffset.y += 1
         hasPositionChanged = true;
-    elif Input.is_action_just_pressed("spawnBlock"+playerNumber):
+    cursorOffset.y = clamp(cursorOffset.y, -2, 2)
+    cursorOffset.x = clamp(cursorOffset.x, -2 ,2)
+    if Input.is_action_just_pressed("spawnBlock"+playerNumber):
         print("SPAWN")
         spawnAtCursor()
     elif Input.is_action_just_pressed("next_block"+playerNumber):
@@ -58,11 +63,12 @@ func processInput():
             currentTileNumber = len(tile_prefabs) - 1;
         if (cursor):
             refreshCursorSprite();
-    if hasPositionChanged:
-        cursorPosition.x = clamp(cursorPosition.x, 0, map.LEVEL_WIDTH)
-        cursorPosition.y = clamp(cursorPosition.y, 0, map.LEVEL_HEIGHT)
-        cursor.position = map.tileToWorldCoordinate(cursorPosition);
-        refreshCursorSprite();
+    cursorPosition = cursorOffset+map.worldToTileCoordinate(basePosition+Vector2(16,16))
+    #if hasPositionChanged:
+    cursorPosition.x = clamp(cursorPosition.x, 0, map.LEVEL_WIDTH)
+    cursorPosition.y = clamp(cursorPosition.y, 0, map.LEVEL_HEIGHT)
+    cursor.position = map.tileToWorldCoordinate(cursorPosition);
+    refreshCursorSprite();
 
 func refreshCursorSprite():
     # hack na wyciągnięcie tekstury z zapakowanej sceny, jebać godota
