@@ -8,7 +8,7 @@ var hp = 3
 var map = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    map = get_tree().get_root().get_node("World").get_node("Map") as Map
+    map = get_parent() as Map
 
 func hit():
     print("HIT W GLEBE")

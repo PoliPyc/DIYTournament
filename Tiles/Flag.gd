@@ -17,7 +17,7 @@ func setPlayerNumber(number):
             $Sprite.modulate = Color(1,0,1);
         
 func _ready():
-   map = get_tree().get_root().get_node("World").get_node("Map") as Map
+   map = get_parent() as Map
 
 func _on_Node2D_body_entered(body):
     if (body.get('playerNumber') != null && body.playerNumber != playerNumber):

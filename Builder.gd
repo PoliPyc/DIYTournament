@@ -11,7 +11,8 @@ var currentTileNumber = 0;
 var canSpawnTile = true;
 
 func _ready():
-    map = get_tree().get_root().get_node("World").get_node("Map") as Map
+    print(get_tree().get_root());
+    map = get_parent().get_parent().get_node("Map") as Map
     playerNumber = (get_parent() as Player).playerNumber
     cursorPosition = map.worldToTileCoordinate(get_parent().position)
     spawnStartPlatform();
