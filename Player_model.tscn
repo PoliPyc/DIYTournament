@@ -7,7 +7,7 @@
 [ext_resource path="res://Projectile_spawn.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 32 )
+extents = Vector2( 16, 16 )
 
 [node name="Player_body" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -23,5 +23,5 @@ shape = SubResource( 1 )
 [node name="State" parent="." instance=ExtResource( 4 )]
 
 [node name="ProjectileSpawnPoint" type="Node2D" parent="."]
-position = Vector2( 30, 0 )
 script = ExtResource( 5 )
+[connection signal="input_event" from="." to="." method="_on_Player_body_input_event"]

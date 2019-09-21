@@ -11,7 +11,8 @@ func start(pos, dir):
 func _physics_process(delta):
     var collision = move_and_collide(velocity * delta)
     if collision:
-        velocity = velocity.bounce(collision.normal)
+        queue_free();
+        #velocity = velocity.bounce(collision.normal)
         if collision.collider.has_method("hit"):
             collision.collider.hit()
 
