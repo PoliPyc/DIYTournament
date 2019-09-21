@@ -12,9 +12,10 @@ func start(pos, dir):
 func _physics_process(delta):
     var collision = move_and_collide(velocity * delta)
     if collision:
-        var e = explosionScene.instance();
-        e.position = self.position;
-        get_tree().get_root().add_child(e)
+        if (explosionScene):
+            var e = explosionScene.instance();
+            e.position = collision.position;
+            get_tree().get_root().add_child(e)
         queue_free();
         #velocity = velocity.bounce(collision.normal)
         if collision.collider.has_method("hit"):
