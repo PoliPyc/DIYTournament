@@ -14,7 +14,8 @@ func _ready():
     map = get_tree().get_root().get_node("World").get_node("Map") as Map
     playerNumber = (get_parent() as Player).playerNumber
     cursorPosition = map.worldToTileCoordinate(get_parent().position)
-    spawnStartPlatform()
+    spawnStartPlatform();
+    spawnDebugFlags();
     handleCursorExistance();
     refreshCursorSprite();
     
@@ -91,7 +92,9 @@ func spawnAtCursor():
     tile.position = map.tileToWorldCoordinate(cursorPosition);
     (map as Node).add_child(tile)
     map.world[cursorPosition.x][cursorPosition.y] = tile
-   
+    if (tile.has_method("setPlayerNumber")):
+        tile.setPlayerNumber(playerNumber);
+
 # Wiem że to nie powinno tu być, jebać
 func spawnStartPlatform():
     var parentPosition = map.worldToTileCoordinate(get_parent().position)
@@ -104,7 +107,26 @@ func spawnStartPlatform():
     map.world[parentPosition.x - 1][parentPosition.y + 1].position = map.tileToWorldCoordinate(parentPosition + Vector2(-1,1))
     (map as Node).add_child(map.world[parentPosition.x - 1][parentPosition.y + 1])
     
+    map.world[parentPosition.x - 2][parentPosition.y + 1] = map.default_tile.instance()
+    map.world[parentPosition.x - 2][parentPosition.y + 1].position = map.tileToWorldCoordinate(parentPosition + Vector2(-2,1))
+    (map as Node).add_child(map.world[parentPosition.x - 2][parentPosition.y + 1])
+    
     map.world[parentPosition.x + 1][parentPosition.y + 1] = map.default_tile.instance()
     map.world[parentPosition.x + 1][parentPosition.y + 1].position = map.tileToWorldCoordinate(parentPosition + Vector2(1,1))
     (map as Node).add_child(map.world[parentPosition.x + 1][parentPosition.y + 1])
+   
+    map.world[parentPosition.x + 2][parentPosition.y + 1] = map.default_tile.instance()
+    map.world[parentPosition.x + 2][parentPosition.y + 1].position = map.tileToWorldCoordinate(parentPosition + Vector2(2,1))
+    (map as Node).add_child(map.world[parentPosition.x + 2][parentPosition.y + 1])
+func spawnDebugFlags():
+    var parentPosition = map.worldToTileCoordinate(get_parent().position)
     
+    map.world[parentPosition.x + 2][parentPosition.y] = tile_prefabs[1].instance()
+    map.world[parentPosition.x + 2][parentPosition.y].position = map.tileToWorldCoordinate(parentPosition + Vector2(2,0))
+    (map as Node).add_child(map.world[parentPosition.x + 2][parentPosition.y])
+    map.world[parentPosition.x + 2][parentPosition.y].setPlayerNumber('1');
+    
+    map.world[parentPosition.x - 2][parentPosition.y] = tile_prefabs[1].instance()
+    map.world[parentPosition.x - 2][parentPosition.y].position = map.tileToWorldCoordinate(parentPosition + Vector2(-2,0))
+    (map as Node).add_child(map.world[parentPosition.x - 2][parentPosition.y])
+    map.world[parentPosition.x - 2][parentPosition.y].setPlayerNumber('2');

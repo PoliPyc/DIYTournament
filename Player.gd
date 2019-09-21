@@ -14,6 +14,7 @@ var hp = 100
 var isInBuilderMode = false
 export var lookingVector = Vector2(1,0)
 
+var isCarryingFlag = false;
 
 func get_input():
     #Applying gravity to player

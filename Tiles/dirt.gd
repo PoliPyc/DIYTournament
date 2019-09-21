@@ -13,11 +13,9 @@ func _ready():
 func hit():
     print("HIT W GLEBE")
     hp -= 1
-    $Sprite.frame = 3 - hp
     if hp < 0:
         queue_free()
         var tableIndex = map.worldToTileCoordinate(self.position);
         map.world[tableIndex.x][tableIndex.y] = null
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#    pass
+    else:
+        $Sprite.frame = 3 - hp        
