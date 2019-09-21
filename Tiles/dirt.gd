@@ -14,7 +14,8 @@ func hit():
     hp =- 1
     if hp < 0:
         queue_free()
-        map.world[map.worldCoordToTileCoord(self.position.x)][map.worldCoordToTileCoord(self.position.y)] = null
+        var tableIndex = map.worldToTileCoordinate(self.position);
+        map.world[tableIndex.x][tableIndex.y] = null
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #    pass

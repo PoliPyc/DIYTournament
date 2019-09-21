@@ -4,6 +4,7 @@ class_name Map
 export(int) var LEVEL_WIDTH  = 40
 export(int) var LEVEL_HEIGHT = 22
 export(int) var TILE_SIZE = 32
+
 export(PackedScene) var default_tile
 
 var world = []
@@ -18,24 +19,15 @@ func _ready():
 
 func generate():
     print("gen")
-    for x in range(LEVEL_WIDTH):
+    for x in range(LEVEL_WIDTH + 1):
         world.append([])
         world[x] = []
-        for y in range(LEVEL_HEIGHT):
+        for y in range(LEVEL_HEIGHT + 1):
             world[x].append([])
             world[x][y] = null
             
-func tileCoordToWorldCoord(coord):
-    return coord * TILE_SIZE;
+func tileToWorldCoordinate(vector):
+    return Vector2(vector.x * TILE_SIZE, vector.y * TILE_SIZE);
     
-func worldCoordToTileCoord(coord):
-    return coord / TILE_SIZE;
-    
-    
-    
-    
-    
-    
-    
-    
-    
+func worldToTileCoordinate(vector):
+    return Vector2(clamp(vector.x / TILE_SIZE, 0, LEVEL_WIDTH), clamp(vector.y / TILE_SIZE, 0 ,LEVEL_HEIGHT));
