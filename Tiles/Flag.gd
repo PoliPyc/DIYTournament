@@ -39,13 +39,12 @@ func reparent(body):
 func score(player):
     player.isCarryingFlag = false;
     #GÓWNO
-#    print(player)
-#    print(player.get_child_count())
-#    print(player.get_child(player.get_child_count() - 1))
-#    for i in player.get_child_count():
-#        if (player.get_child(i) is Flag):
-#            print ("DUPA");
-#    player.get_child(player.get_child_count() - 1).queue_free();
+    print(player)
+    print(player.get_child_count())
+    print(player.get_child(player.get_child_count() - 1))
+    for i in range(player.get_child_count()):
+        if (player.get_child(i).get_class() == 'Area2D'):
+            player.get_child(i).queue_free();
 
 func validatePosition(vector, map):
     return map.world[vector.x][vector.y + 1] != null && map.world[vector.x][vector.y + 1] is Dirt
