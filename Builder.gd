@@ -2,7 +2,6 @@ extends Node
 
 var map
 
-var isBuilderMode = false
 var cursorPosition = Vector2(0,0)
 export(PackedScene) var cursor_prefab
 export(PackedScene) var tile_prefab
@@ -18,7 +17,6 @@ func _ready():
 
 func _process(delta):
     processInput();
-
     
 func handleCursorExistance():
     if (!cursor):
@@ -26,11 +24,6 @@ func handleCursorExistance():
         cursor.position = map.tileToWorldCoordinate(cursorPosition);
         (map as Node).add_child(cursor)
 
-func _input(event):
-    if event is InputEventKey:
-        print(event.as_text())
-
-        
 func processInput():
     var hasPositionChanged = false;
     if Input.is_action_just_pressed("cursor_right"+playerNumber):
