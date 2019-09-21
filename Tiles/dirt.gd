@@ -7,11 +7,11 @@ var map = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
     map = get_tree().get_root().get_node("World").get_node("Map") as Map
-    pass # Replace with function body.
 
 func hit():
     print("HIT W GLEBE")
-    hp =- 1
+    hp -= 1
+    $Sprite.frame = 3 - hp
     if hp < 0:
         queue_free()
         var tableIndex = map.worldToTileCoordinate(self.position);
