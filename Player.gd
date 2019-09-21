@@ -13,6 +13,8 @@ export var gravity = 8
 var hp = 100
 var isInBuilderMode = false
 export var lookingVector = Vector2(1,0)
+
+
 func get_input():
     #Applying gravity to player
     var newLookingVector = Vector2()
@@ -22,30 +24,25 @@ func get_input():
     #Jump Physics
     if velocity.y > 0: #Player is falling
         velocity += Vector2.UP * (-9.81) * (fallMultiplier) #Falling action is faster than jumping action | Like in mario
-
     elif velocity.y < 0 && Input.is_action_just_released("jump"+playerNumber): #Player is jumping 
         velocity += Vector2.UP * (-9.81) * (lowJumpMultiplier) #Jump Height depends on how long you will hold key
-
-    if (Input.is_action_just_pressed("enableBuilder"+playerNumber)):
-        isInBuilderMode = !isInBuilderMode
-    if (!isInBuilderMode):
-        if is_on_floor():
-            if Input.is_action_just_pressed("jump"+playerNumber): 
-                velocity = Vector2.UP * jumpVelocity #Normal Jump action
-        if Input.is_action_pressed("right"+playerNumber):
-            velocity.x = speed
-            newLookingVector.x = 1
-        elif Input.is_action_pressed("left"+playerNumber):
-            velocity.x = -speed
-            newLookingVector.x = -1
-        else:
-            velocity.x = 0
-        if Input.is_action_pressed("up"+playerNumber):
-            newLookingVector.y = -1
-        elif Input.is_action_pressed("down"+playerNumber):
-            newLookingVector.y = 1
-        if newLookingVector.length() != 0:
-            lookingVector = newLookingVector        
+    if is_on_floor():
+        if Input.is_action_just_pressed("jump"+playerNumber): 
+            velocity = Vector2.UP * jumpVelocity #Normal Jump action
+    if Input.is_action_pressed("right"+playerNumber):
+        velocity.x = speed
+        newLookingVector.x = 1
+    elif Input.is_action_pressed("left"+playerNumber):
+        velocity.x = -speed
+        newLookingVector.x = -1
+    else:
+        velocity.x = 0
+    if Input.is_action_pressed("up"+playerNumber):
+        newLookingVector.y = -1
+    elif Input.is_action_pressed("down"+playerNumber):
+        newLookingVector.y = 1
+    if newLookingVector.length() != 0:
+        lookingVector = newLookingVector        
     velocity = move_and_slide(velocity, Vector2(0,-1))
     if Input.is_action_just_pressed('shoot'+playerNumber):
         $ProjectileSpawnPoint.shoot()

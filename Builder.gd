@@ -16,44 +16,46 @@ func _ready():
     cursorX = map.worldCoordToTileCoord(get_parent().position.x)
     cursorY = map.worldCoordToTileCoord(get_parent().position.y)
     spawnStartPlatform()
+    handleCursorExistance();
 
 func _process(delta):
     processInput();
-    handleCursorExistance();
+
     
 func handleCursorExistance():
-    if (cursor == null && isBuilderMode):
+    if (!cursor):
         cursor = cursor_prefab.instance()
         cursor.position.x = map.tileCoordToWorldCoord(cursorX);
         cursor.position.y = map.tileCoordToWorldCoord(cursorY);
         (map as Node).add_child(cursor)
-    elif (cursor != null && !isBuilderMode):
-        cursor.queue_free()
-        cursor = null
-    
+
+func _input(event):
+    if event is InputEventKey:
+        print(event.as_text())
+
+        
 func processInput():
     var hasPositionChanged = false;
-    if Input.is_action_just_pressed("enableBuilder"+playerNumber):
-        isBuilderMode = !isBuilderMode;
-    if (!isBuilderMode):
-        return
-        
-    if Input.is_action_just_pressed("right"+playerNumber):
+    if Input.is_action_just_pressed("cursor_right"+playerNumber):
+        print("R")
         cursorX += 1
         hasPositionChanged = true;        
-    elif Input.is_action_just_pressed("left"+playerNumber):
+    elif Input.is_action_just_pressed("cursor_left"+playerNumber):
+        print("L")
         cursorX -= 1
         hasPositionChanged = true;        
-    elif Input.is_action_just_pressed("up"+playerNumber):
+    elif Input.is_action_just_pressed("cursor_up"+playerNumber):
+        print("U")
         cursorY -= 1
         hasPositionChanged = true;        
-    elif Input.is_action_just_pressed("down"+playerNumber):
+    elif Input.is_action_just_pressed("cursor_down"+playerNumber):
+        print("D")
         cursorY += 1
         hasPositionChanged = true;
     elif Input.is_action_just_pressed("spawnBlock"+playerNumber):
+        print("SPAWN")
         spawnAtCursor()
-        hasPositionChanged = true;
-    if (hasPositionChanged):
+    if cursor:
         cursor.position.x = map.tileCoordToWorldCoord(cursorX);
         cursor.position.y = map.tileCoordToWorldCoord(cursorY);
 
